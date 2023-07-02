@@ -1,8 +1,11 @@
-class Node
-    attr_accessor :data, :next
+# frozen_string_literal: true
 
-    def initialize(data = nil)
-        @data = data
-        @next = nil
-    end
+class Node
+  attr_accessor :data, :left, :right
+
+  def initialize(data = nil)
+    @data = data
+    @left = nil
+    @right = nil
+  end
 end
