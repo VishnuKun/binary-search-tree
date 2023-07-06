@@ -18,8 +18,8 @@ class Tree
     mid = n.div(2)
     root = Node.new(nums[mid])
     root.left = build_tree(nums[...mid])
-    root.right = build_tree(nums[(mid + 1)..])
-
+    root.right = build_tree(nums[mid + 1..])
+    
     root
   end
 end
