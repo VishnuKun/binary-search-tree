@@ -10,20 +10,16 @@ class Tree
   end
 
   # method to convert array to BST
-  # and return root of tree
 
-  def array_to_BST(nums)
-    # if array.empty? return nil
-    return nil if nums.nil?
+  def build_tree(nums)
+    return nil if nums.nil? || nums.empty?
 
-    # else
-    # find middle element
-    # make it the root
-    # divide array into two parts
-    # left and right from the middle element
-    # repeat process using recursion
-    # make middle of left, root
-    # make middle of right, root
-    # return pre-order of tree
+    n = nums.length
+    mid = n.div(2)
+    root = Node.new(nums[mid])
+    root.left = build_tree(nums[...mid])
+    root.right = build_tree(nums[(mid + 1)..])
+
+    root
   end
 end
