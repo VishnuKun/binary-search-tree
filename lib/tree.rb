@@ -46,6 +46,23 @@ class Tree
     end
   end
 
+  def delete(del_value)
+    current = @root
+    return nil if current.nil?
+    # if root is to be deleted
+      # when the root have no children
+      # when the root have 1 child
+      # when the root have 2 children
+
+    # if node is to be deleted
+      # when the node have 1 child
+      # when the node have 2 childs
+      
+    # if a child is to be deleted
+    while current
+    end
+  end
+
   def find(value)
     return false if @root.nil?
 
