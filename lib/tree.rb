@@ -9,8 +9,6 @@ class Tree
     @root = build_tree(array)
   end
 
-  # convert array to BST
-
   def build_tree(arr)
     return nil if arr.nil? || arr.empty?
 
@@ -49,36 +47,29 @@ class Tree
   def delete(value)
     @root = delete_node(@root, value)
   end
-  
+
   def delete_node(root, value)
     return root if root.nil?
-    # if value is greater than root 
-    # go towards the right
-    # else go towards the left recursively
+
     if value < root.data
       root.left = delete_node(root.left, value)
     elsif value > root.data
       root.right = delete_node(root.right, value)
+    elsif root.left.nil? && root.right.nil?
+      root = nil
+    elsif root.left.nil?
+      root = root.right
+    elsif root.right.nil?
+      root = root.left
     else
-      # Case 1: Node to be deleted has no children
-      if root.left.nil? && root.right.nil?
-        root = nil
-      # Case 2: Node to be deleted has one child
-      elsif root.left.nil?
-        root = root.right
-      elsif root.right.nil?
-        root = root.left
-      # Case 3: Node to be deleted has two children
-      else
-        successor = find_minimum(root.right)
-        root.data = successor.data
-        root.right = delete_node(root.right, successor.data)
-      end
+      successor = find_minimum(root.right)
+      root.data = successor.data
+      root.right = delete_node(root.right, successor.data)
     end
-  
+
     root
   end
-  
+
   def find_minimum(node)
     current = node
     current = current.left until current.left.nil?
@@ -97,6 +88,26 @@ class Tree
                 else
                   current.right
                 end
+    end
+  end
+
+  def level_order
+    output = []
+    q = Queue.new
+    q << @root
+    until q.empty?
+      node = q.shift
+      output << node.data
+      q << node.left unless node.left.nil?
+      q << node.right unless node.right.nil?
+    end
+    return output unless block_given?
+
+    i = 0
+    while i < output.length
+
+      yield(output[i])
+      i += 1
     end
   end
 end
