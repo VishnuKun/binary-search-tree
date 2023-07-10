@@ -112,7 +112,49 @@ class Tree
   end
 
   def inorder
-    ouput =[]
-    return ouput unless block_given?
+    current = @root
+    def inorder_array(root)
+      arr = []
+      if root
+        arr << inorder_array(root.left)
+        arr << root.data
+        arr << inorder_array(root.right)
+      end
+      arr.flatten!
+      arr
+    end
+    return inorder_array(current)
   end
+  
+  def preorder
+    current = @root
+    def preorder_array(root)
+      arr = []
+      if root
+        arr << root.data
+        arr << preorder_array(root.left)
+        arr << preorder_array(root.right)
+      end
+      arr.flatten!
+      arr
+    end
+    return preorder_array(current)
+  end
+
+  def postorder
+    current = @root
+    def postorder_array(root)
+      arr = []
+      if root
+        arr << postorder_array(root.left)
+        arr << postorder_array(root.right)
+        arr << root.data
+      end
+      arr.flatten!
+      arr
+    end
+    return postorder_array(current)
+  end
+
+
 end
