@@ -46,6 +46,45 @@ class Tree
     end
   end
 
+  def delete(value)
+    @root = delete_node(@root, value)
+  end
+  
+  def delete_node(root, value)
+    return root if root.nil?
+    # if value is greater than root 
+    # go towards the right
+    # else go towards the left recursively
+    if value < root.data
+      root.left = delete_node(root.left, value)
+    elsif value > root.data
+      root.right = delete_node(root.right, value)
+    else
+      # Case 1: Node to be deleted has no children
+      if root.left.nil? && root.right.nil?
+        root = nil
+      # Case 2: Node to be deleted has one child
+      elsif root.left.nil?
+        root = root.right
+      elsif root.right.nil?
+        root = root.left
+      # Case 3: Node to be deleted has two children
+      else
+        successor = find_minimum(root.right)
+        root.data = successor.data
+        root.right = delete_node(root.right, successor.data)
+      end
+    end
+  
+    root
+  end
+  
+  def find_minimum(node)
+    current = node
+    current = current.left until current.left.nil?
+    current
+  end
+
   def find(value)
     return false if @root.nil?
 
