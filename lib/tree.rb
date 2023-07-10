@@ -112,5 +112,7 @@ class Tree
   end
 
   def inorder
+    ouput =[]
+    return ouput unless block_given?
   end
 end
