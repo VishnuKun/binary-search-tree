@@ -110,4 +110,7 @@ class Tree
       i += 1
     end
   end
+
+  def inorder
+  end
 end
