@@ -123,9 +123,9 @@ class Tree
       arr.flatten!
       arr
     end
-    return inorder_array(current)
+    inorder_array(current)
   end
-  
+
   def preorder
     current = @root
     def preorder_array(root)
@@ -138,7 +138,7 @@ class Tree
       arr.flatten!
       arr
     end
-    return preorder_array(current)
+    preorder_array(current)
   end
 
   def postorder
@@ -153,8 +153,69 @@ class Tree
       arr.flatten!
       arr
     end
-    return postorder_array(current)
+    postorder_array(current)
   end
 
+  def height(value)
+    node = find_node(value)
+    return node_height(node) unless node.nil?
 
+    -1
+  end
+
+  def node_height(node)
+    return -1 if node.nil?
+
+    left = node_height(node.left)
+    right = node_height(node.right)
+    [left, right].max + 1
+  end
+
+  def find_node(value)
+    current = @root
+    while current
+      if current.data == value
+        return current
+        break
+      end
+      current = if current.data > value
+                  current.left
+                else
+                  current.right
+                end
+    end
+    nil
+  end
+
+  def depth(value)
+    node = find_node(value)
+    node_depth(node)
+  end
+
+  def node_depth(node)
+    return 0 if node.nil?
+
+    left = node_depth(node.left)
+    right = node_depth(node.right)
+    [left, right].max + 1
+  end
+
+  def balanced?
+    is_balanced?(@root)
+  end
+
+  def is_balanced?(root)
+    return true if root.nil?
+  
+    left_height = root.left.nil? ? -1 : height(root.left.data)
+    right_height = root.right.nil? ? -1 : height(root.right.data)
+  
+    height_difference = (left_height - right_height).abs
+  
+    if height_difference <= 1
+      is_balanced?(root.left) && is_balanced?(root.right)
+    else
+      false
+    end
+  end
 end
