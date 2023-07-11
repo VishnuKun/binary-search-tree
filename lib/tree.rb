@@ -6,6 +6,8 @@ class Tree
   attr_accessor :root
 
   def initialize(array = nil)
+    array = array.sort
+    array.uniq!
     @root = build_tree(array)
   end
 
@@ -217,5 +219,17 @@ class Tree
     else
       false
     end
+  end
+
+  def rebalance
+    current = @root
+    rebalanced_arr(@root)
+  end
+
+  def rebalanced_arr(root)
+    # get the sorted array 
+    arr = self.level_order.sort
+    # make a new balanced binary search tree
+    @root = build_tree(arr)
   end
 end
